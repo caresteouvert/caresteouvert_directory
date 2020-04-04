@@ -203,6 +203,11 @@ ipaddr.js@1.9.1:
   resolved "https://registry.yarnpkg.com/ipaddr.js/-/ipaddr.js-1.9.1.tgz#bff38543eeb8984825079ff3a2a8e6cbd46781b3"
   integrity sha512-0KI/607xoxSToH7GjN1FfSbLoU0+btTicjsQSWQlh/hZykN8KpmMf7uYwPW3R+akZ6R/w18ZlXSHBYXiYUPO3g==
 
+lodash@^4.17.15:
+  version "4.17.15"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
+  integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
+
 media-typer@0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/media-typer/-/media-typer-0.3.0.tgz#8710d7af0aa626f8fffa1ce00168545263255748"
@@ -276,11 +281,6 @@ pg-connection-string@0.1.3:
   version "0.1.3"
   resolved "https://registry.yarnpkg.com/pg-connection-string/-/pg-connection-string-0.1.3.tgz#da1847b20940e42ee1492beaf65d49d91b245df7"
   integrity sha1-2hhHsglA5C7hSSvq9l1J2RskXfc=
-
-pg-cursor@^2.1.7:
-  version "2.1.7"
-  resolved "https://registry.yarnpkg.com/pg-cursor/-/pg-cursor-2.1.7.tgz#2eff69ace88f1ea48875f201854e53c6ec7b89d3"
-  integrity sha512-lAUauMSEFyuOSTK/CGn4sgCU8v5jxqTZSPyeyAqISZ8RI1a0wkAfU6Eksn/BPOz+wsuHdPIo1WEldvQDUz9hKA==
 
 pg-int8@1.0.1:
   version "1.0.1"
