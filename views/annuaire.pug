@@ -1,0 +1,9 @@
+html
+  head
+    title= 'Ca reste ouvert - Catégories des commerces et lieux ouverts durant le confinement'
+  body
+    p= 'Les catégories présentes sont :'
+    ul
+      each cat in cats
+        - var url = baseUrl+'/'+cat+postfix
+        li: a(href=url)= cat

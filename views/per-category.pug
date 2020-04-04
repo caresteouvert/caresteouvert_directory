@@ -1,0 +1,13 @@
+html
+  head
+    title= 'Ca reste ouvert - POI de type "#{cat}" ouverts durant le confinement'
+  body
+    p= 'Les catégories présentes sont :'
+    ul
+      each poi in pois
+        li
+          include poi-annuaire.pug
+      if page > 0
+        li: a(href=paginatedUrl + (page-1))= 'Précédents'
+      if pois.length >= elementPerPage
+        li: a(href=paginatedUrl + (page+1))= 'Suivants'
