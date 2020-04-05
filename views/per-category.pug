@@ -1,13 +1,16 @@
-html
-  head
-    title= t('brand') + ' - ' + t('listing.title', { category: cat })
-  body
-    p= t('listing.description', { category: cat })
-    ul
-      each poi in pois
-        li
-          include poi-annuaire.pug
-      if page > 0
-        li: a(href=paginatedUrl + (page-1))= t('listing.previous')
-      if pois.length >= elementPerPage
-        li: a(href=paginatedUrl + (page+1))= t('listing.next')
+extends layout.pug
+
+block title
+  = t('brand') + ' - ' + t('listing.title', { category: cat })
+
+block content
+  p= t('listing.description', { category: cat })
+  each poi in pois
+    include poi-annuaire.pug
+
+  nav
+   ul(class="pagination")
+     if page > 0
+       li(class="page-item"): a(class="page-link" href=paginatedUrl + (page-1))= t('listing.previous')
+     if pois.length >= elementPerPage
+       li(class="page-item"): a(class="page-link" href=paginatedUrl + (page+1))= t('listing.next')

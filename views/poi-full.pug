@@ -1,25 +1,27 @@
-- 
-  var ignored = ['fid', 'lat', 'lon', 'brand_wikidata'];
-  var translation = {
-    delivery: 'delivery',
-    cat: 'categories',
-    status: 'state',
-    normalized_cat: 'filter',
-    t: function (key) {
-      if (this[key]) {
-        return t(`${this[key]}.${poi[key]}`);
-      } else {
-        return poi[key];
-      }
-    },
-  };
+extends layout.pug
 
-- var link=`/@${poi.lat},${poi.lon},18.00/place/${poi.fid}`;
-a(href=link)= t('brand')
+block content
+  -
+    var ignored = ['fid', 'lat', 'lon', 'brand_wikidata'];
+    var translation = {
+      delivery: 'delivery',
+      cat: 'categories',
+      status: 'state',
+      normalized_cat: 'filter',
+      t: function (key) {
+        if (this[key]) {
+          return t(`${this[key]}.${poi[key]}`);
+        } else {
+          return poi[key];
+        }
+      },
+    };
+  - var link=`/@${poi.lat},${poi.lon},18.00/place/${poi.fid}`;
+  a(href=link)= t('brand')
 
-each key in Object.keys(poi)
-  if !poi[key] || ignored.includes(key)
-  else if typeof(poi[key]) === 'object'
-    div= t(`poi.${key}`) + ' : ' + JSON.stringify(poi[key])
-  else
-    div= `${t(`poi.${key}`)} : ${translation.t(key)}`
+  each key in Object.keys(poi)
+    if !poi[key] || ignored.includes(key)
+    else if typeof(poi[key]) === 'object'
+      div= t(`poi.${key}`) + ' : ' + JSON.stringify(poi[key])
+    else
+      div= `${t(`poi.${key}`)} : ${translation.t(key)}`

@@ -2,5 +2,7 @@
 - var poiUrl = poi.normalized_cat + '/' + poi.fid
 
 a(href=poiUrl)
-  div= name
-  div= t('state.' + poi.status)
+  div(class="card mb-2")
+    div(class="card-body")
+      h5(class="card-title")= name
+      p(class="card-text")= t('state.' + poi.status)

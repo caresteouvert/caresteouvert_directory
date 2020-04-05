@@ -1,9 +1,13 @@
-html
-  head
-    title= `${t('brand')} - ${t('annuaire.title')}`
-  body
-    p= t('annuaire.description')
-    ul
-      each cat in cats
-        - var catUrl = `${url.base}/${cat}${url.postfix}`
-        li: a(href=catUrl)= t(`filter.${cat}`)
+extends layout.pug
+
+block title
+  = `${t('brand')} - ${t('annuaire.title')}`
+
+block content
+  p= t('annuaire.description')
+  each cat in cats
+    - var catUrl = `${url.base}/${cat}${url.postfix}`
+    div(class="card")
+      div(class="card-body")
+        h5(class="card-title")
+          a(href=catUrl)= t(`filter.${cat}`)
