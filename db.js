@@ -3,14 +3,15 @@ const { Pool } = require('pg');
 const pgPool = new Pool();
 const poiOsmTable = 'poi_osm';
 const normalizedCatColumn = 'normalized_cat';
+const fidColumn = 'fid';
 
 const queries = (table) => {
     return {
         selectDistinctFrom: (column) => `SELECT DISTINCT(${column}) FROM ${table};`,
-        selectWhereCategory: (category) => `SELECT * FROM ${table} WHERE ${normalizedCatColumn}='${category}' limit 25;`,
         selectWhereCategoryPage: (category, count, offset) => {
             return `SELECT * FROM ${table} WHERE ${normalizedCatColumn}='${category}' ORDER BY fid LIMIT ${count} OFFSET ${offset};`;
         },
+        selectWhereFid: (fid) => `SELECT * FROM ${poiOsmTable} WHERE ${fidColumn}='${fid}';`,
     }
 };
 
@@ -23,6 +24,12 @@ module.exports = {
         const offset = count * page;
         return pgPool.query(queries(poiOsmTable).selectWhereCategoryPage(cat, count, offset))
             .then(res => res.rows);
+    },
+    readPoi: (fid) => {
+        return pgPool.query(queries(poiOsmTable).selectWhereFid(fid))
+            .then(res => {
+                return res.rows.shift()
+            });
     },
     close: () => {
         pgPool.end();

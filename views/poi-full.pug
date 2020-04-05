@@ -1,0 +1,6 @@
+each key in Object.keys(poi)
+  if !poi[key]
+  else if typeof(poi[key]) === 'object'
+    div= key + ': ' + JSON.stringify(poi[key])
+  else
+    div= key + ': ' + poi[key]

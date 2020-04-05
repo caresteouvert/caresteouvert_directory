@@ -8,6 +8,7 @@ const port = 3000;
 const baseRoute = '/annuaire';
 const elementPerPage = 30;
 
+// route to annuaire
 app.get(`${baseRoute}`, function (req, res) {
     db.listNormalizedCat().then(data => {
         res.render('annuaire', {
@@ -22,6 +23,7 @@ app.get(`${baseRoute}`, function (req, res) {
     });
 });
 
+// route to category page
 app.get(`${baseRoute}/:category-:page`, function (req, res) {
     const cat = req.params['category'];
     const page = req.params['page'] ? parseInt(req.params['page']) : 0;
@@ -33,6 +35,24 @@ app.get(`${baseRoute}/:category-:page`, function (req, res) {
                 page: page,
                 elementPerPage: elementPerPage,
                 paginatedUrl: `${baseRoute}/${cat}-`,
+            });
+        })
+        .catch(err => {
+            res.statusCode = 400;
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify(err));
+        });
+});
+
+// route to poi
+app.get(`${baseRoute}/:category/:fid`, function (req, res) {
+    const cat = req.params['category'];
+    const fid = req.params['fid'];
+    db.readPoi(fid)
+        .then(poi => {
+            console.log('poi:', poi);
+            res.render('poi-full', {
+                poi: poi,
             });
         })
         .catch(err => {

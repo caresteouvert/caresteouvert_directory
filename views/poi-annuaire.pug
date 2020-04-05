@@ -1,1 +1,4 @@
-div= poi.fid + ' - ' + poi.name + ' - ' + poi.status
+- var name = poi.name ? poi.name : poi.normalized_cat
+- var poiUrl = poi.normalized_cat + '/' + poi.fid
+
+a(href=poiUrl)= name + ' : ' + poi.status
