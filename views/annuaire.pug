@@ -1,9 +1,9 @@
 html
   head
-    title= 'Ca reste ouvert - Catégories des commerces et lieux ouverts durant le confinement'
+    title= `${t('brand')} - ${t('annuaire.title')}`
   body
-    p= 'Les catégories présentes sont :'
+    p= t('annuaire.description')
     ul
       each cat in cats
-        - var url = baseUrl+'/'+cat+postfix
-        li: a(href=url)= cat
+        - var catUrl = `${url.base}/${cat}${url.postfix}`
+        li: a(href=catUrl)= t(`filter.${cat}`)

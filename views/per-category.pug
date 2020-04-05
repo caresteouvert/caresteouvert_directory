@@ -1,13 +1,13 @@
 html
   head
-    title= 'Ca reste ouvert - POI de type "#{cat}" ouverts durant le confinement'
+    title= t('brand') + ' - ' + t('listing.title', { category: cat })
   body
-    p= 'Les catégories présentes sont :'
+    p= t('listing.description', { category: cat })
     ul
       each poi in pois
         li
           include poi-annuaire.pug
       if page > 0
-        li: a(href=paginatedUrl + (page-1))= 'Précédents'
+        li: a(href=paginatedUrl + (page-1))= t('listing.previous')
       if pois.length >= elementPerPage
-        li: a(href=paginatedUrl + (page+1))= 'Suivants'
+        li: a(href=paginatedUrl + (page+1))= t('listing.next')

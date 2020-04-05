@@ -1,6 +1,22 @@
+- 
+  var ignored = ['fid', 'geom', 'brand_wikidata'];
+  var translation = {
+    delivery: 'delivery',
+    cat: 'categories',
+    status: 'state',
+    normalized_cat: 'filter',
+    t: function (key) {
+      if (this[key]) {
+        return t(`${this[key]}.${poi[key]}`);
+      } else {
+        return poi[key];
+      }
+    },
+  };
+
 each key in Object.keys(poi)
-  if !poi[key]
+  if !poi[key] || ignored.includes(key)
   else if typeof(poi[key]) === 'object'
-    div= key + ': ' + JSON.stringify(poi[key])
+    div= t(`poi.${key}`) + ' : ' + JSON.stringify(poi[key])
   else
-    div= key + ': ' + poi[key]
+    div= `${t(`poi.${key}`)} : ${translation.t(key)}`

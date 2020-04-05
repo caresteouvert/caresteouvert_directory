@@ -2,19 +2,44 @@ const express = require('express');
 const app = express();
 const db = require('./db');
 const _ = require('lodash');
+const i18next = require('i18next');
+const i18nextMiddleware = require('i18next-express-middleware');
+const Backend = require('i18next-node-fs-backend');
 
 const hostname = '0.0.0.0';
 const port = 3000;
 const baseRoute = '/annuaire';
 const elementPerPage = 30;
 
+i18next
+  .use(Backend)
+  .use(i18nextMiddleware.LanguageDetector)
+  .init({
+    backend: {
+      loadPath: __dirname + '/locales/{{lng}}.json',
+      addPath: __dirname + '/locales/{{lng}}.missing.json'
+    },
+    detection: {
+      order: ['querystring', 'cookie'],
+      caches: ['cookie']
+    },
+    fallbackLng: 'en',
+    preload: ['en', 'fr'],
+    saveMissing: true
+  });
+
+app.set('view engine', 'pug')
+app.use(i18nextMiddleware.handle(i18next));
+
 // route to annuaire
 app.get(`${baseRoute}`, function (req, res) {
     db.listNormalizedCat().then(data => {
         res.render('annuaire', {
             cats: data,
-            baseUrl: req.url,
-            postfix: '-0',
+            url: {
+                base: baseRoute,
+                postfix: '-0',
+            },
         });
     }).catch(err => {
         res.statusCode = 400;
@@ -50,7 +75,6 @@ app.get(`${baseRoute}/:category/:fid`, function (req, res) {
     const fid = req.params['fid'];
     db.readPoi(fid)
         .then(poi => {
-            console.log('poi:', poi);
             res.render('poi-full', {
                 poi: poi,
             });
@@ -61,8 +85,6 @@ app.get(`${baseRoute}/:category/:fid`, function (req, res) {
             res.end(JSON.stringify(err));
         });
 });
-
-app.set('view engine', 'pug');
 
 app.listen(port, () => {
     console.log(`Server running at http://${hostname}:${port}/`);
