@@ -4,6 +4,7 @@
   "description": "Ça reste ouvert - Mise a disposition d'URL d'information sur les POI",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "dev": "npx nodemon index.js",
     "test": "test"
   },
