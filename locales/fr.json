@@ -38,11 +38,11 @@
 		"other": "Autres établissements"
 	},
 	"state": {
-		"ouvert": "Lieu ouvert durant le confinement",
-		"ouvert_adapté": "Lieu ouvert durant le confinement avec des horaires adaptés",
-		"partiel": "Lieu potentiellement ouvert durant le confinement (à vérifier)",
-		"inconnu": "Lieu autorisé à ouvrir durant le confinement. Ouvert ou fermé ? À vous de le dire",
-		"fermé": "Lieu fermé durant le confinement"
+		"open": "Lieu ouvert durant le confinement",
+		"open_adapted": "Lieu ouvert durant le confinement avec des horaires adaptés",
+		"partial": "Lieu potentiellement ouvert durant le confinement (à vérifier)",
+		"unknown": "Lieu autorisé à ouvrir durant le confinement. Ouvert ou fermé ? À vous de le dire",
+		"closed": "Lieu fermé durant le confinement"
 	},
 	"categories": {
 		"amenity": "Services",
@@ -83,9 +83,9 @@
 		"agrarian": "Produits pour l'agriculture"
 	},
 	"delivery": {
-		"no": "Non",
+		"no": "Service de livraison non disponible",
 		"unknown": "Inconnu",
-		"only": "Livraison uniquement",
-		"yes": "Oui"
+		"yes": "Service de livraison proposé",
+		"only": "Livraison uniquement"
 	}
 }
