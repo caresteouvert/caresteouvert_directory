@@ -1,5 +1,5 @@
 - 
-  var ignored = ['fid', 'geom', 'brand_wikidata'];
+  var ignored = ['fid', 'lat', 'lon', 'brand_wikidata'];
   var translation = {
     delivery: 'delivery',
     cat: 'categories',
@@ -13,6 +13,9 @@
       }
     },
   };
+
+- var link=`/@${poi.lat},${poi.lon},18.00/place/${poi.fid}`;
+a(href=link)= t('brand')
 
 each key in Object.keys(poi)
   if !poi[key] || ignored.includes(key)

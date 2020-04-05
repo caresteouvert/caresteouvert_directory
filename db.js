@@ -6,14 +6,18 @@ const pgPool = new Pool({ connectionString, ssl: { rejectUnauthorized: false } }
 const poiOsmTable = 'poi_osm';
 const normalizedCatColumn = 'normalized_cat';
 const fidColumn = 'fid';
+const columns = 'fid, ST_X(ST_Transform(geom, 4326)) AS lon, ST_Y(ST_Transform(geom, 4326)) AS lat,'
+    + ' name, cat, normalized_cat,'
+    + ' brand, brand_wikidata, brand_hours, brand_infos,'
+    + ' status, opening_hours, delivery, tags';
 
 const queries = (table) => {
     return {
         selectDistinctFrom: (column) => `SELECT DISTINCT(${column}) FROM ${table};`,
         selectWhereCategoryPage: (category, count, offset) => {
-            return `SELECT * FROM ${table} WHERE ${normalizedCatColumn}='${category}' ORDER BY fid LIMIT ${count} OFFSET ${offset};`;
+            return `SELECT ${columns} FROM ${table} WHERE ${normalizedCatColumn}='${category}' ORDER BY fid LIMIT ${count} OFFSET ${offset};`;
         },
-        selectWhereFid: (fid) => `SELECT * FROM ${poiOsmTable} WHERE ${fidColumn}='${fid}';`,
+        selectWhereFid: (fid) => `SELECT ${columns} FROM ${poiOsmTable} WHERE ${fidColumn}='${fid}';`,
     }
 };
 
