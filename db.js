@@ -1,6 +1,8 @@
 const { Pool } = require('pg');
 
-const pgPool = new Pool();
+const connectionString = process.env.DATABASE_URL;
+
+const pool = new Pool({ connectionString });
 const poiOsmTable = 'poi_osm';
 const normalizedCatColumn = 'normalized_cat';
 const fidColumn = 'fid';
