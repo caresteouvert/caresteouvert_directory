@@ -1,0 +1,91 @@
+{
+	"brand": "Ça reste ouvert",
+	"annuaire": {
+		"title": "Catégories des commerces et lieux ouverts durant le confinement",
+		"description": "Les catégories présentes sont :"
+	},
+	"listing": {
+		"title": "Liste des $t(filter.{{category}})",
+		"description": "$t(filter.{{category}}) connus",
+		"previous": "Précédent",
+		"next": "Suivants"
+	},
+	"poi": {
+		"title": "{{ name }}",
+		"description": "Les informations connues sur ce lieu sont :",
+		"name": "Nom du lieu",
+		"cat": "Type de lieu",
+		"normalized_cat": "Rubrique",
+		"brand": "Nom de la marque",
+		"brand_hours": "Horaires de la marque",
+		"brand_infos": "Informations concernant la marque",
+		"status": "Information concernant l'ouverture de ce lieu",
+		"delivery": "La livraison est-elle possible",
+		"opening_hours": "Horaires d'ouverture",
+		"tags": "Informations brutes issues de OpenStreetMap"
+	},
+	"filter": {
+		"bakery": "Boulangeries",
+		"bank": "Banques & assurances",
+		"food": "Alimentation",
+		"fuel": "Stations services",
+		"funeral_directors": "Services funéraires",
+		"pharmacy": "Pharmacies",
+		"police": "Police",
+		"post_office": "Bureaux de poste",
+		"shop": "Commerces",
+		"tobacco": "Tabac",
+		"other": "Autres établissements"
+	},
+	"state": {
+		"open": "Lieu ouvert durant le confinement",
+		"open_adapted": "Lieu ouvert durant le confinement avec des horaires adaptés",
+		"partial": "Lieu potentiellement ouvert durant le confinement (à vérifier)",
+		"unknown": "Lieu autorisé à ouvrir durant le confinement. Ouvert ou fermé ? À vous de le dire",
+		"closed": "Lieu fermé durant le confinement"
+	},
+	"categories": {
+		"amenity": "Services",
+		"police": "Police",
+		"post_office": "Bureau de poste",
+		"bank": "Banque & assurances",
+		"pharmacy": "Pharmacie",
+		"optician": "Opticien",
+		"employment_agency": "Agence pour l'emploi",
+		"funeral_directors": "Pompes funèbres",
+		"food": "Alimentation",
+		"supermarket": "Supermarché",
+		"butcher": "Boucherie",
+		"cheese": "Fromagerie",
+		"convenience": "Supérette",
+		"seafood": "Poissonnerie",
+		"greengrocer": "Primeur",
+		"grocery": "Épicerie",
+		"bakery": "Boulangerie",
+		"alcohol": "Vente d'alcool",
+		"marketplace": "Marché",
+		"transport": "Transports",
+		"fuel": "Station-service",
+		"car_rental": "Location de voiture",
+		"bicycle": "Magasin de vélos",
+		"car": "Garage",
+		"tobacco": "Tabac",
+		"e_cigarette": "E-cigarette",
+		"shop": "Boutiques",
+		"hardware": "Bricolage",
+		"electronics": "Matériel électronique",
+		"laundry": "Laverie",
+		"stationery": "Fournitures",
+		"medical_supply": "Matériel médical",
+		"mobile_phone": "Téléphonie mobile",
+		"newsagent": "Journaux",
+		"pet": "Animalerie",
+		"agrarian": "Produits pour l'agriculture"
+	},
+	"delivery": {
+		"no": "Service de livraison non disponible",
+		"unknown": "Inconnu",
+		"yes": "Service de livraison proposé",
+		"only": "Livraison uniquement"
+	}
+}

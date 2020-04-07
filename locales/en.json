@@ -1,0 +1,89 @@
+{
+	"brand": "It remains open",
+	"annuaire": {
+		"title": "Categories of places open during lockdown",
+		"description": "Available categories:"
+	},
+	"listing": {
+		"title": "Listing of $t(filter.{{category}})",
+		"description": "Known $t(filter.{{category}})",
+		"previous": "Previous",
+		"next": "Next"
+	},
+	"poi": {
+		"title": "{{ name }}",
+		"description": "Available information about this place",
+		"name": "Name",
+		"cat": "Type of location",
+		"normalized_cat": "Category",
+		"brand": "Brand name",
+		"brand_hours": "Brand opening hours",
+		"brand_infos": "Information about this brand",
+		"status": "Information about opening status",
+		"delivery": "Is delivery available",
+		"opening_hours": "Opening hours",
+		"tags": "Raw information from OpenStreetMap"
+	},
+	"filter": {
+		"bakery": "Bakeries",
+		"bank": "Banks & insurance companies",
+		"food": "Food stores",
+		"fuel": "Service stations",
+		"funeral_directors": "Funeral directors",
+		"pharmacy": "Pharmacies",
+		"police": "Police stations",
+		"post_office": "Post offices",
+		"shop": "Shops",
+		"tobacco": "Tobacco",
+		"other": "Other places"
+	},
+	"state": {
+		"open": "Place open during lockdown",
+		"open_adapted": "Place open during lockdown, with adapted hours",
+		"partial": "Place potentially open during lockdown (to be checked)",
+		"unknown": "Place allowed to open during lockdown. Open or closed ? Let us know",
+		"closed": "Place closed during lockdown"
+	},
+	"categories": {
+		"police": "Police",
+		"pharmacy": "Pharmacy",
+		"post_office": "Post office",
+		"food": "Food",
+		"supermarket": "Supermarket",
+		"butcher": "Butcher",
+		"cheese": "Cheese",
+		"convenience": "Convenience",
+		"seafood": "Seafood",
+		"greengrocer": "Greengrocer",
+		"grocery": "Grocery",
+		"alcohol": "Alcohol store",
+		"marketplace": "Marketplace",
+		"bakery": "Bakery",
+		"tobacco": "Tobacco",
+		"e_cigarette": "E-cigarette",
+		"shop": "Shops",
+		"hardware": "Hardware",
+		"mobile_phone": "Mobile phone",
+		"electronics": "Electronics",
+		"laundry": "Laundry",
+		"stationery": "Stationery",
+		"medical_supply": "Medical supplies",
+		"newsagent": "Newsagent",
+		"pet": "Pet store",
+		"agrarian": "Agricultural products",
+		"optician": "Optician",
+		"employment_agency": "Employment agency",
+		"car_rental": "Car rental",
+		"bicycle": "Bicycle shop",
+		"car": "Garage",
+		"bank": "Bank & insurance",
+		"fuel": "Fuel station",
+		"funeral_directors": "Funeral directors"
+	},
+	"delivery": {
+		"no": "Delivery service unavailable",
+		"unknown": "Unknown",
+		"yes": "Delivery service available",
+		"only": "Only by delivery"
+	}
+}

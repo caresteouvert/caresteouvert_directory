@@ -1,0 +1,31 @@
+{
+  "name": "caresteouvert_directory",
+  "version": "1.0.0",
+  "description": "Ça reste ouvert - Mise a disposition d'URL d'information sur les POI",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "npx nodemon index.js",
+    "test": "test"
+  },
+  "engines": {
+    "node": "12"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/osmontrouge/caresteouvert_directory.git"
+  },
+  "bugs": {
+    "url": "https://github.com/osmontrouge/caresteouvert_directory/issues"
+  },
+  "homepage": "https://github.com/osmontrouge/caresteouvert_directory#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "i18next": "^19.3.4",
+    "i18next-express-middleware": "^1.9.1",
+    "i18next-node-fs-backend": "^2.1.3",
+    "lodash": "^4.17.15",
+    "pg": "^8.0.0",
+    "pug": "^2.0.4"
+  }
+}

@@ -1,0 +1,27 @@
+version: "3.7"
+services:
+  web:
+    image: node:12
+    volumes:
+      - ./:/code
+    working_dir: /code
+    ports:
+      - "3000:3000"
+    environment:
+      PGHOST: 'postgres'
+      PGUSER: postgres
+      PGPASSWORD: postgres
+      PGDATABASE: postgres
+      PGPORT: 5432
+    command: yarn run dev
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgis/postgis:12-3.0
+    ports:
+      - "5432:5432"
+    volumes:
+      - ../caresteouvert_data/:/data
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
