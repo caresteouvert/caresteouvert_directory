@@ -1,5 +1,5 @@
 - var name = poi.name ? poi.name : t('categories.' + poi.cat)
-- var poiUrl = poi.normalized_cat + '/' + poi.fid
+- var poiUrl = `${poi.normalized_cat}/${poi.reg_libelle}/${poi.dep_libelle}/${poi.com_libelle}/${name},${poi.fid}`
 
 a(href=poiUrl)
   div(class="card mb-2")
