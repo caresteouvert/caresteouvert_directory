@@ -2,7 +2,10 @@ extends layout.pug
 
 block content
   -
-    var ignored = ['fid', 'lat', 'lon', 'brand_wikidata', 'com_com', 'dep_dep', 'reg_reg'];
+    var notShown = ['fid', 'lat', 'lon', 'brand_wikidata', 'com_com', 'dep_dep', 'reg_reg'];
+    var handled = ['name', 'reg_libelle', 'dep_libelle', 'com_libelle', 'opening_hours', 'tags'];
+    var tagsHandled = ['email', 'phone', 'website', 'description'];
+    var ignored = notShown.concat(handled);
     var translation = {
       delivery: 'delivery',
       cat: 'categories',
@@ -16,12 +19,66 @@ block content
         }
       },
     };
-  - var link=`/@${poi.lat},${poi.lon},18.00/place/${poi.fid}`;
-  a(href=link)= t('brand')
+    var link=`/@${poi.lat},${poi.lon},18.00/place/${poi.fid}`;
 
-  each key in Object.keys(poi)
-    if !poi[key] || ignored.includes(key)
-    else if typeof(poi[key]) === 'object'
-      div= t(`poi.${key}`) + ' : ' + JSON.stringify(poi[key])
-    else
-      div= `${t(`poi.${key}`)} : ${translation.t(key)}`
+  h2= t('categories.' + poi.cat, t('categories.' + poi.normalized_cat)) + (poi.name ? ' : ' + poi.name : '')
+  ul
+    li= t('poi.normalized_cat') + ' : ' + t('categories.' + poi.normalized_cat)
+    if poi.brand
+      li= t('poi.brand') + ' : ' + poi.brand
+
+  div
+    if url.reg && poi.reg_libelle
+      a(href=url.reg)= poi.reg_libelle
+      span= ' / '
+    if url.dep && poi.dep_libelle
+      a(href=url.dep)= poi.dep_libelle
+      span= ' / '
+    if url.com && poi.com_libelle
+      a(href=url.com)= poi.com_libelle
+
+  div
+    a(href=link)= t('brand')
+
+  div
+    h3= t('poi.status')
+    ul
+      li= t('state.' + poi.status)
+
+  h3= t('poi.opening_hours')
+  if poi.opening_hours || poi.tags.opening_hours
+    ul
+      if poi.opening_hours
+        li
+          h5= 'durant le confinement'
+          div= poi.opening_hours
+      if poi.tags.opening_hours
+        li
+          h5= 'hors confinement'
+          td= poi.tags.opening_hours
+  else
+    div= 'horaires d\'ouverture inconnus'
+
+  div
+    h3= 'Contact'
+    ul
+      if poi.tags.email
+        li= t('poi.email') + ' : ' + poi.tags.email
+      if poi.tags.phone
+        li= t('poi.phone') + ' : ' + poi.tags.phone
+      if poi.tags.website
+        li= t('poi.website') + ' : ' + poi.tags.website
+
+  div
+    h3= 'Informations supplémentaires'
+    ul
+      li= t('poi.delivery') + ' : ' + translation.t('delivery')
+      if poi.tags.description
+        li= t('poi.description') + ' : ' + poi.tags.description
+
+  div
+    h3= t('poi.tags')
+    ul
+      each key in Object.keys(poi.tags)
+        if poi.tags[key] && !tagsHandled.includes(key)
+          li= t(`poi.${key}`, key) + ' : ' + poi.tags[key]

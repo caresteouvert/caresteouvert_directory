@@ -4,7 +4,8 @@ const express = require('express'),
     _ = require('lodash'),
     i18next = require('i18next'),
     i18nextMiddleware = require('i18next-express-middleware'),
-    Backend = require('i18next-node-fs-backend');
+    Backend = require('i18next-node-fs-backend'),
+    favicon = require('serve-favicon');
 
 const hostname = '0.0.0.0',
     port = process.env.PORT || 3000,
@@ -30,6 +31,7 @@ i18next
 
 app.set('view engine', 'pug')
 app.use(i18nextMiddleware.handle(i18next));
+app.use(favicon(__dirname + '/favicon.png'));
 
 const defaultErrorHandler = (err, res) => {
     console.warn(err);
@@ -71,11 +73,18 @@ app.get(`${baseRoute}/:category-:page`, function (req, res) {
 app.get(`${baseRoute}/:category/:reg/:dep/:com/:nom,:fid`, function (req, res) {
     const cat = req.params['category'],
         reg = req.params['reg'],
+        dep = req.params['dep'],
+        com = req.params['com'],
         fid = req.params['fid'];
     db.readPoi(fid)
         .then(poi => {
             res.render('poi-full', {
                 poi: poi,
+                url: {
+                    reg: `${baseRoute}/${cat}/${reg}`,
+                    dep: `${baseRoute}/${cat}/${reg}/${dep}`,
+                    com: `${baseRoute}/${cat}/${reg}/${dep}/${com}`,
+                }
             });
         }).catch(err => defaultErrorHandler(err, res));
 });
