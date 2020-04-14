@@ -31,6 +31,13 @@ i18next
 app.set('view engine', 'pug')
 app.use(i18nextMiddleware.handle(i18next));
 
+const defaultErrorHandler = (err, res) => {
+    console.warn(err);
+    res.statusCode = 400;
+    res.setHeader('Content-Type', 'application/json');
+    res.end(JSON.stringify(err));
+}
+
 // route to annuaire
 app.get(`${baseRoute}`, function (req, res) {
     db.listNormalizedCat().then(data => {
@@ -41,11 +48,7 @@ app.get(`${baseRoute}`, function (req, res) {
                 postfix: '-0',
             },
         });
-    }).catch(err => {
-        res.statusCode = 400;
-        res.setHeader('Content-Type', 'application/json');
-        res.end(JSON.stringify(err));
-    });
+    }).catch(err => defaultErrorHandler(err, res));
 });
 
 // route to category page
@@ -61,29 +64,20 @@ app.get(`${baseRoute}/:category-:page`, function (req, res) {
                 elementPerPage: elementPerPage,
                 paginatedUrl: `${baseRoute}/${cat}-`,
             });
-        })
-        .catch(err => {
-            res.statusCode = 400;
-            res.setHeader('Content-Type', 'application/json');
-            res.end(JSON.stringify(err));
-        });
+        }).catch(err => defaultErrorHandler(err, res));
 });
 
 // route to poi
-app.get(`${baseRoute}/:category/:fid`, function (req, res) {
-    const cat = req.params['category'];
-    const fid = req.params['fid'];
+app.get(`${baseRoute}/:category/:reg/:dep/:com/:nom,:fid`, function (req, res) {
+    const cat = req.params['category'],
+        reg = req.params['reg'],
+        fid = req.params['fid'];
     db.readPoi(fid)
         .then(poi => {
             res.render('poi-full', {
                 poi: poi,
             });
-        })
-        .catch(err => {
-            res.statusCode = 400;
-            res.setHeader('Content-Type', 'application/json');
-            res.end(JSON.stringify(err));
-        });
+        }).catch(err => defaultErrorHandler(err, res));
 });
 
 app.listen(port, () => {

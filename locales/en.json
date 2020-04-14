@@ -22,7 +22,10 @@
 		"status": "Information about opening status",
 		"delivery": "Is delivery available",
 		"opening_hours": "Opening hours",
-		"tags": "Raw information from OpenStreetMap"
+		"tags": "Raw information from OpenStreetMap",
+		"com_libelle": "Place located in",
+		"dep_libelle": "Place located in",
+		"reg_libelle": "Place located in"
 	},
 	"filter": {
 		"bakery": "Bakeries",

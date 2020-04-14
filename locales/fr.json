@@ -22,8 +22,11 @@
 		"status": "Information concernant l'ouverture de ce lieu",
 		"delivery": "La livraison est-elle possible",
 		"opening_hours": "Horaires d'ouverture",
-		"tags": "Informations brutes issues de OpenStreetMap"
-	},
+		"tags": "Informations brutes issues de OpenStreetMap",
+		"com_libelle": "Lieu situé dans la commune",
+		"dep_libelle": "Lieu situé dans le département",
+		"reg_libelle": "Lieu situé dans la région"
+		},
 	"filter": {
 		"bakery": "Boulangeries",
 		"bank": "Banques & assurances",
