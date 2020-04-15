@@ -12,10 +12,7 @@ router.get(`/`, function (req, res) {
     db.listNormalizedCat().then(data => {
         res.render('annuaire', {
             cats: data,
-            url: {
-                base: req.baseUrl,
-                postfix: '-0',
-            },
+            url: req.originalUrl,
         });
     }).catch(err => errorHandler(err, res));
 });
@@ -23,17 +20,17 @@ router.get(`/`, function (req, res) {
 /**
  * route to category page
  */
-router.get(`/:category-:page`, function (req, res) {
+router.get(`/:category`, function (req, res) {
     const cat = req.params['category'];
-    const page = req.params['page'] ? parseInt(req.params['page']) : 0;
-    db.listEntries(cat, elementPerPage, page)
+    const page = req.query['page'] ? parseInt(req.query['page']) : 0;
+    db.listPoisByCat(cat, elementPerPage, page)
         .then(rows => {
             res.render('per-category', {
                 cat: cat,
                 pois: rows,
                 page: page,
                 elementPerPage: elementPerPage,
-                paginatedUrl: `/${cat}-`,
+                paginatedUrl: `${req.baseUrl}/${cat}?page=`,
             });
         }).catch(err => errorHandler(err, res));
 });

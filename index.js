@@ -1,6 +1,7 @@
 const express = require('express'),
     app = express(),
     view_routes = require('./view-routes'),
+    api_routes = require('./api-routes'),
     _ = require('lodash'),
     i18next = require('i18next'),
     i18nextMiddleware = require('i18next-express-middleware'),
@@ -30,6 +31,7 @@ app.set('view engine', 'pug')
 app.use(i18nextMiddleware.handle(i18next));
 
 app.use('/annuaire', view_routes);
+app.use('/directory', api_routes);
 
 app.listen(port, () => {
     console.log(`Server running at http://${hostname}:${port}/`);
