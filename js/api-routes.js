@@ -5,6 +5,15 @@ const express = require('express'),
 
 const elementPerPage = 100;
 
+const link = (href, title, rel = 'self', type = 'application/json') => {
+    return {
+        href,
+        rel,
+        type,
+        title
+    };
+};
+
 /**
  * Route to Regions list
  */
@@ -12,45 +21,51 @@ router.get(`/`, function (req, res) {
     db.listRegs()
         .then(regs => {
             res.json({
-                data: regs,
-                links: regs.map(reg => {
+                links: link(req.originalUrl, 'directory.regions.title'),
+                regions: regs.map(reg => {
                     return {
-                        url: `${req.baseUrl}/${reg.libelle}`,
-                        alt: `Departments in ${reg.libelle}`,
-                    }
-                }),
-            });
+                        type: 'directory.regions.type',
+                        id: reg.reg,
+                        properties: reg,
+                        links: link(`${req.baseUrl}/${reg.libelle}`, 'directory.regions.link.departements'),
+                    };
+                })
+            })
         }).catch(err => errorHandler(err, res));
 });
 
 /**
- * route to region
+ * route to region's departements list
  */
 router.get(`/:reg`, function (req, res) {
     db.listDeps(req.params['reg'])
         .then(deps => res.json({
-            data: deps,
-            links: deps.map(dep => {
+            links: link(req.originalUrl, 'directory.departements.title'),
+            departements: deps.map(dep => {
                 return {
-                    url: `${req.originalUrl}/${dep.libelle}`,
-                    alt: `Link to department ${dep.libelle}`,
-                }
+                    type: 'directory.departements.type',
+                    id: dep.dep,
+                    properties: dep,
+                    links: link(`${req.originalUrl}/${dep.libelle}`, 'directory.departements.link.communes'),
+                };
             })
         })).catch(err => errorHandler(err, res));
 });
 
 /**
- * route to department
+ * route to department's communes list
  */
 router.get(`/:reg/:dep`, function (req, res) {
     db.listComs(req.params['dep'])
         .then(coms => res.json({
-            data: coms,
-            links: coms.map(com => {
+            links: link(req.originalUrl, 'directory.communes.title'),
+            communes: coms.map(com => {
                 return {
-                    url: `${req.originalUrl}/${com.libelle}`,
-                    alt: `Link to county ${com.libelle}`,
-                }
+                    type: 'directory.communes.type',
+                    id: com.com,
+                    properties: com,
+                    links: link(`${req.originalUrl}/${com.libelle}`, 'directory.communes.link.categories'),
+                };
             })
         })).catch(err => errorHandler(err, res));
 });
@@ -61,21 +76,21 @@ router.get(`/:reg/:dep`, function (req, res) {
 router.get(`/:reg/:dep/:com`, function (req, res) {
     const com = req.params['com'];
     db.listNormalizedCat()
-        .then(categories => {
-            res.json({
-                data: categories,
-                links: categories.map(cat => {
-                    return {
-                        url: `${req.originalUrl}/${cat}?page=0`,
-                        alt: `POIs ${cat} in ${com}`,
-                    }
-                }),
-            });
-        }).catch(err => errorHandler(err, res));
+        .then(cats => res.json({
+            links: link(req.originalUrl, 'directory.categories.title'),
+            categories: cats.map(cat => {
+                return {
+                    type: 'directory.categories.type',
+                    id: cat,
+                    properties: cat,
+                    links: link(`${req.originalUrl}/${cat}`, 'directory.categories.link.pois'),
+                };
+            })
+        })).catch(err => errorHandler(err, res));
 });
 
 /**
- * route to category page
+ * route to category page: POIs list
  */
 router.get(`/:reg/:dep/:com/:category`, function (req, res) {
     const cat = req.params['category'];
@@ -91,27 +106,27 @@ router.get(`/:reg/:dep/:com/:category`, function (req, res) {
     };
 
     const navigationForPage = (url, page, elements) => {
-        const previous = page > 0 ? [{
-            url: urlAtPage(url, page - 1),
-            alt: `Previous`,
-        }] : [];
-        const next = elements >= elementPerPage ? [{
-            url: urlAtPage(url, page + 1),
-            alt: `Next`,
-        }] : [];
+        const previous = page > 0 ? link(urlAtPage(url, page - 1), 'directory.pois.link.previous') : [],
+            next = elements >= elementPerPage ? link(urlAtPage(url, page + 1), 'directory.pois.link.next') : [];
+        console.log(previous, next)
         return [].concat(previous, next);
     }
 
     db.listPoisByCatAndCom(cat, com, elementPerPage, page)
         .then(pois => {
             res.json({
-                data: pois,
-                links: pois.map(poi => {
+                links: [].concat(
+                    link(req.originalUrl, 'directory.pois.title'),
+                    navigationForPage(req.originalUrl, page, pois.length)
+                ),
+                pois: pois.map(poi => {
                     return {
-                        url: `${urlWithoutPage(req.originalUrl)}/${poi.name},${poi.fid}`,
-                        alt: `Description for POI ${poi.cat} ${poi.name}`,
-                    }
-                }).concat(navigationForPage(req.originalUrl, page, pois.length)),
+                        type: 'directory.pois.type',
+                        id: poi.fid,
+                        properties: poi,
+                        links: link(`${urlWithoutPage(req.originalUrl)}/${poi.name},${poi.fid}`, 'directory.pois.link.poi'),
+                    };
+                }),
             });
         }).catch(err => errorHandler(err, res));
 });
@@ -123,8 +138,10 @@ router.get(`/:reg/:dep/:com/:category/:nom,:fid`, function (req, res) {
     const fid = req.params['fid'];
     db.readPoi(fid)
         .then(poi => res.json({
-            data: poi,
-            links: {},
+            links: link(req.originalUrl, 'directory.poi.title'),
+            type: 'directory.pois.type',
+            id: poi.fid,
+            properties: poi,
         })).catch(err => errorHandler(err, res));
 });
 
