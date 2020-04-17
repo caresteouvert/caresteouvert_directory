@@ -108,7 +108,6 @@ router.get(`/:reg/:dep/:com/:category`, function (req, res) {
     const navigationForPage = (url, page, elements) => {
         const previous = page > 0 ? link(urlAtPage(url, page - 1), 'directory.pois.link.previous') : [],
             next = elements >= elementPerPage ? link(urlAtPage(url, page + 1), 'directory.pois.link.next') : [];
-        console.log(previous, next)
         return [].concat(previous, next);
     }
 
