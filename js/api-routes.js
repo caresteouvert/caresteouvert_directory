@@ -21,7 +21,9 @@ router.get(`/`, function (req, res) {
     db.listRegs()
         .then(regs => {
             res.json({
-                links: link(req.originalUrl, 'directory.regions.title'),
+                links: [
+                    link(req.originalUrl, 'directory.regions.title'),
+                ],
                 regions: regs.map(reg => {
                     return {
                         type: 'directory.regions.type',
@@ -40,7 +42,9 @@ router.get(`/`, function (req, res) {
 router.get(`/:reg`, function (req, res) {
     db.listDeps(req.params['reg'])
         .then(deps => res.json({
-            links: link(req.originalUrl, 'directory.departements.title'),
+            links: [
+                link(req.originalUrl, 'directory.departements.title'),
+            ],
             departements: deps.map(dep => {
                 return {
                     type: 'directory.departements.type',
@@ -58,7 +62,9 @@ router.get(`/:reg`, function (req, res) {
 router.get(`/:reg/:dep`, function (req, res) {
     db.listComs(req.params['dep'])
         .then(coms => res.json({
-            links: link(req.originalUrl, 'directory.communes.title'),
+            links: [
+                link(req.originalUrl, 'directory.communes.title'),
+            ],
             communes: coms.map(com => {
                 return {
                     type: 'directory.communes.type',
@@ -77,7 +83,9 @@ router.get(`/:reg/:dep/:com`, function (req, res) {
     const com = req.params['com'];
     db.listNormalizedCat()
         .then(cats => res.json({
-            links: link(req.originalUrl, 'directory.categories.title'),
+            links: [
+                link(req.originalUrl, 'directory.categories.title'),
+            ],
             categories: cats.map(cat => {
                 return {
                     type: 'directory.categories.type',
@@ -106,8 +114,8 @@ router.get(`/:reg/:dep/:com/:category`, function (req, res) {
     };
 
     const navigationForPage = (url, page, elements) => {
-        const previous = page > 0 ? link(urlAtPage(url, page - 1), 'directory.pois.link.previous') : [],
-            next = elements >= elementPerPage ? link(urlAtPage(url, page + 1), 'directory.pois.link.next') : [];
+        const previous = page > 0 ? link(urlAtPage(url, page - 1), 'directory.pois.link.previous', 'prev') : [],
+            next = elements >= elementPerPage ? link(urlAtPage(url, page + 1), 'directory.pois.link.next', 'next') : [];
         return [].concat(previous, next);
     }
 
@@ -137,7 +145,9 @@ router.get(`/:reg/:dep/:com/:category/:nom,:fid`, function (req, res) {
     const fid = req.params['fid'];
     db.readPoi(fid)
         .then(poi => res.json({
-            links: link(req.originalUrl, 'directory.poi.title'),
+            links: [
+                link(req.originalUrl, 'directory.poi.title'),
+            ],
             type: 'directory.pois.type',
             id: poi.fid,
             properties: poi,
